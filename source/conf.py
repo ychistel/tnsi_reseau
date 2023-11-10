@@ -17,9 +17,9 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Processus et réseaux'
-copyright = '2022, yannick chistel'
-author = 'yannick chistel'
+project = 'Protocole réseau'
+copyright = '2023, Yannick Chistel'
+author = 'Yannick Chistel'
 
 
 # -- General configuration ---------------------------------------------------
@@ -42,7 +42,7 @@ language = 'fr'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['processus/nb','protocoles_de_routage/nb']
+exclude_patterns = ['nb']
 
 
 # -- Options for HTML output -------------------------------------------------
