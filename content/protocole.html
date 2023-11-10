@@ -1,0 +1,679 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="fr" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Protocoles de routage &#8212; NSI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/script.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/protocole';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="Exercices : protocoles RIP et OSPF" href="ex_routage.html" />
+    <link rel="prev" title="Exercices" href="exercice_1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Passer au contenu principal</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">NSI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="activite_reseau.html">Réseau et adressage IP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture_reseau.html">Architecture réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercice_1.html">Exercices</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Protocoles de routage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_routage.html">Exercices : protocoles RIP et OSPF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercice_2.html">Au baccalauréat</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Téléchargez cette page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/protocole.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Télécharger le fichier source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimer au format PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Protocoles de routage</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topologie-d-un-reseau">Topologie d’un réseau</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protocole-de-routage">Protocole de routage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#protocole-rip">Protocole RIP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#protocole-ospf">Protocole OSPF</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="toctree-wrapper compound">
+</div>
+<section id="protocoles-de-routage">
+<h1>Protocoles de routage<a class="headerlink" href="#protocoles-de-routage" title="Lien permanent vers cette rubrique">#</a></h1>
+<section id="topologie-d-un-reseau">
+<h2>Topologie d’un réseau<a class="headerlink" href="#topologie-d-un-reseau" title="Lien permanent vers cette rubrique">#</a></h2>
+<p>Les routeurs sont des dispositifs qui permettent la communication entre les appareils terminaux se trouvant dans un réseau.</p>
+<ul class="simple">
+<li><p>On a les routeurs d’accès à un réseau dans lequel les machines sont reliées entre elles à l’aide de switchs eux-mêmes reliés au routeur.</p></li>
+<li><p>On a les routeurs d’interconnexion de réseau, c’est à dire des routeurs reliés à d’autres routeurs  pour interconnecter différents réseaux.</p></li>
+</ul>
+<p>On appelle <strong>topologie d’un réseau</strong> l’interconnexion de ces routeurs entre eux et les différents réseaux qu’ils relient.</p>
+<div class="admonition-exemple admonition">
+<p class="admonition-title">Exemple</p>
+<p>On considère la topologie réseau suivante: 6 routeurs et 2 réseaux locaux.</p>
+<ol class="arabic">
+<li><p>Le réseau local a une adresse réseau <code class="docutils literal notranslate"><span class="pre">192.168.1.0/24</span></code>.</p>
+<p>Cela signifie que le masque de réseau est <code class="docutils literal notranslate"><span class="pre">255.255.255.0</span></code> autorisant 256 adresses IP. Le routeur R1 dispose d’une adresse IP dans ce réseau local pour être accessible depuis toutes les machines du réseau.</p>
+</li>
+<li><p>L’adresse réseau entre les routeurs R1 et R3 a pour valeur <code class="docutils literal notranslate"><span class="pre">10.1.1.0/30</span></code>.</p>
+<p>Le masque de réseau est <code class="docutils literal notranslate"><span class="pre">255.255.255.252</span></code> autorisant seulement 4 adresses IP. Par exemple, pour l’adresse réseau <code class="docutils literal notranslate"><span class="pre">10.1.1.0</span></code>, on a les adresses <code class="docutils literal notranslate"><span class="pre">10.1.1.1</span></code>, <code class="docutils literal notranslate"><span class="pre">10.1.1.2</span></code> et <code class="docutils literal notranslate"><span class="pre">10.1.1.3</span></code> qui sera utilisée pour le broadcast. Par conséquent 2 adresses IP peuvent être attribuées sur ce réseau aux routeurs R1 et R3.</p>
+</li>
+</ol>
+<a class="reference internal image-reference" href="../_images/topologie2.png"><img alt="../_images/topologie2.png" class="align-center" src="../_images/topologie2.png" style="width: 600px;" /></a>
+</div>
+<p>On représente souvent la topologie d’un réseau plus simplement par un <strong>graphe</strong> dans lequel :</p>
+<ul class="simple">
+<li><p>Chaque <strong>sommet</strong> du graphe représente un routeur</p></li>
+<li><p>Chaque arête du graphe représente une connexion entre 2 routeurs.</p></li>
+<li><p>Dans le cas d’un graphe pondéré, le poids sur une arête représente le coût ou la distance entre 2 routeurs.</p></li>
+</ul>
+<div class="admonition-exemple admonition">
+<p class="admonition-title">Exemple</p>
+<p>La topologie réseau de l’exemple précédent peut se représenter par le graphe suivant:</p>
+<a class="reference internal image-reference" href="../_images/graphe_reseau_1.svg"><img alt="../_images/graphe_reseau_1.svg" class="align-center" src="../_images/graphe_reseau_1.svg" width="240" /></a>
+<ul class="simple">
+<li><p>Le graphe a 6 <strong>sommets</strong> et 7 <strong>arêtes</strong>.</p></li>
+<li><p>Les sommets du graphe représentent les routeurs R1, R2, R3, R4, R5 et R6.</p></li>
+<li><p>Les arêtes représentent les liens entre les routeurs.</p></li>
+</ul>
+</div>
+</section>
+<section id="protocole-de-routage">
+<h2>Protocole de routage<a class="headerlink" href="#protocole-de-routage" title="Lien permanent vers cette rubrique">#</a></h2>
+<p>Les routeurs utilisent un protocole pour communiquer entre eux, assurant ainsi l’acheminement des données entre les machines de deux réseaux distants. Chaque routeur a une connaissance du réseau auquel il appartient. Ces données sont rassemblées dans une <strong>table de routage</strong> qui comprend notamment :</p>
+<ul class="simple">
+<li><p>les adresses réseaux de destination avec lesquelles il peut communiquer;</p></li>
+<li><p>les passerelles (routeurs) qui permettent d’accéder aux réseaux;</p></li>
+<li><p>les interfaces réseaux sur lesquelles il faut envoyer les données.</p></li>
+<li><p>les coûts pour optimiser l’acheminement des données : ce coût dépend du débit de la connexion ou du nombre de routeurs à traverser pour arriver à destination.</p></li>
+</ul>
+<p>Il existe de nombreux protocoles de routage. On s’intéressera à deux protocoles qui sont RIP et OSPF.</p>
+<p>Les tables de routages sont régulièrement mises à jour grâce à des algorithmes:</p>
+<ul class="simple">
+<li><p>Le protocole RIP utilise l’algorithme de Bellman-Ford pour découvrir la topologie du réseau.</p></li>
+<li><p>Le protocole OSPF utilise l’algorithme de Dijkstra pour déterminer la route la plus rapide</p></li>
+</ul>
+<section id="protocole-rip">
+<h3>Protocole RIP<a class="headerlink" href="#protocole-rip" title="Lien permanent vers cette rubrique">#</a></h3>
+<p>Le protocole RIP détermine le trajet à suivre pour la transmission de données à partir du nombre de routeurs à traverser pour atteindre le destinataire. Chaque routeur traversé est un <strong>saut</strong>.</p>
+<p>Chaque  routeur dispose d’une table de routage qui contient les informations sur les routeurs avec lesquels il communique. La table de routage se construit en plusieurs étapes.</p>
+<ul class="simple">
+<li><p>Au début, un routeur complète sa table de routage avec ses voisins immédiats. Il mémorise les réseaux directement reliés à lui, les interfaces utilisées puis met chaque distance (saut) à 1.</p></li>
+<li><p>Ensuite, il échange régulièrement sa table avec ses voisins et complète ou met à jour sa table de routage avec les informations détenues par les routeurs voisins.</p></li>
+<li><p>Au bout d’un certain temps, la table de routage d’un routeur se stabilise et dispose des informations sur tout le réseau.</p></li>
+</ul>
+<div class="admonition-exemple admonition">
+<p class="admonition-title">Exemple</p>
+<p>On reprend la topologie réseau de l’exemple précédent.</p>
+<a class="reference internal image-reference" href="../_images/topologie2.png"><img alt="../_images/topologie2.png" class="align-center" src="../_images/topologie2.png" style="width: 600px;" /></a>
+<p>La table de routage du routeur R1 en découvrant le réseau dispose de la table de routage suivante:</p>
+<table class="border-on border-width-1 table table-center" id="id1">
+<caption><span class="caption-text">Table de routage initiale</span><a class="headerlink" href="#id1" title="Lien permanent vers ce tableau">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Destination</p></th>
+<th class="head"><p>Passerelle</p></th>
+<th class="head"><p>Interface</p></th>
+<th class="head"><p>Distance</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>10.1.1.0/30</p></td>
+<td></td>
+<td><p>eth0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>192.168.1.0/24</p></td>
+<td></td>
+<td><p>wlan0</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+<p>Après un certain temps, la table se stabilise et contient les informations suivantes:</p>
+<table class="border-on border-width-1 table table-center" id="id2">
+<caption><span class="caption-text">Table de routage finale</span><a class="headerlink" href="#id2" title="Lien permanent vers ce tableau">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Destination</p></th>
+<th class="head"><p>Passerelle</p></th>
+<th class="head"><p>Interface</p></th>
+<th class="head"><p>Distance</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>10.1.1.0/30</p></td>
+<td></td>
+<td><p>eth0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>192.168.1.0/24</p></td>
+<td></td>
+<td><p>wlan0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>10.1.2.0/30</p></td>
+<td><p>10.1.1.2</p></td>
+<td><p>eth0</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>10.1.3.0/30</p></td>
+<td><p>10.1.1.2</p></td>
+<td><p>eth0</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>10.1.4.0/30</p></td>
+<td><p>10.1.1.2</p></td>
+<td><p>eth0</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>10.1.7.0/30</p></td>
+<td><p>10.1.1.2</p></td>
+<td><p>eth0</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>192.168.1.0/24</p></td>
+<td><p>10.1.1.2</p></td>
+<td><p>eth0</p></td>
+<td><p>4</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Un routeur qui reçoit les informations d’un routeur voisin suit les 4 règles du protocole RIP:</p>
+<ol class="arabic simple">
+<li><p>il découvre une nouvelle route inconnue vers un sous réseau inconnu, il ajoute à sa table;</p></li>
+<li><p>Il découvre une route plus courte vers un sous-réseau connu, mais passant par un nouveau routeur. L’ancienne route est remplacée par la nouvelle;</p></li>
+<li><p>Il reçoit une nouvelle route plus longue vers un sous-réseau connu, il l’ignore;</p></li>
+<li><p>Il reçoit une route plus longue vers un routeur passant par le même voisin, cela signifie qu’un problème est survenu sur l’ancienne route. Il met à jour sa table avec cette nouvelle route.</p></li>
+</ol>
+<p>Lorsqu’un routeur reçoit une route, il faut augmenter la distance de 1, soit pour la comparer aux autres routes, soit pour l’ajouter à sa table. Les distances indiquent le nombre de routeurs traversés pour accéder à un sous réseau. Lorsque la distance est supérieure à 15, la route est effacée de la table.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Lorsqu’une <strong>panne</strong> survient sur le réseau, comme la rupture de communication entre 2 routeurs, les routeurs qui perdent la connexion envoient l’information aux autres routeurs avec un coût supérieur à 15 (en général 16) pour que les autres routeurs mettent à jour leurs tables. Il remplacent la route rompue par une autre route, certes plus longue que l’ancienne, mais qui permet d’acheminer les données.</p>
+</div>
+</section>
+<section id="protocole-ospf">
+<h3>Protocole OSPF<a class="headerlink" href="#protocole-ospf" title="Lien permanent vers cette rubrique">#</a></h3>
+<p>Le protocole OSPF (Open Shortest Path First) est adapté pour de très grands réseaux. Les réseaux sont découpés en zones et le protocole OSPF gère chaque zone. Ensuite il gère le routage entre les zones.</p>
+<p>La principale différence avec le protocole RIP est la prise en compte de la <strong>rapidité de transmission</strong> de l’information. L’algorithme de Dijkstra permet de déterminer la route la plus courte entre 2 routeurs.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/ospf2.png"><img alt="../_images/ospf2.png" src="../_images/ospf2.png" style="width: 560px;" /></a>
+</figure>
+<p>Comme pour le protocole RIP, les routeurs échangent leurs informations et mettent à jour leurs tables de routage. Le protocole OSPF calcule le coût d’une liaison avec ses routeurs voisins.</p>
+<p>Le coût d’une liaison se calcule avec la relation <span class="math notranslate nohighlight">\(\dfrac{10^{8}}{d}\)</span> où <em>d</em> est le débit de la liaison donnée en bit par seconde (bit/s).</p>
+<div class="admonition-exemple admonition">
+<p class="admonition-title">Exemple</p>
+<p>Reprenons le réseau de l’exemple précédent en le représentant par un graphe pondéré.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/graphe_ospf.png"><img alt="../_images/graphe_ospf.png" src="../_images/graphe_ospf.png" style="width: 400px;" /></a>
+</figure>
+<ol class="arabic">
+<li><p>On connait le <strong>débit</strong> entre le routeur R1 et R2 :</p>
+<p>10 Mbits/s = <span class="math notranslate nohighlight">\(10 \times 10^{6}\)</span> bits/s soit <span class="math notranslate nohighlight">\(10^{7}\)</span> bits/s.</p>
+</li>
+<li><p>Donc le coût de la liason est <span class="math notranslate nohighlight">\(\dfrac{10^{8}}{10^{7}}=10\)</span>.</p></li>
+</ol>
+</div>
+<p>L’algorithme de Dijkstra permet de déterminer la route la moins couteuse entre 2 routeurs, c’est à dire celle qui a le coût le plus faible et donc la plus rapide en débit.</p>
+<div class="admonition-exemple admonition">
+<p class="admonition-title">Exemple</p>
+<table class="border-on border-width-1 table table-center" id="id3">
+<caption><span class="caption-text">Table de routage finale</span><a class="headerlink" href="#id3" title="Lien permanent vers ce tableau">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>R1</p></th>
+<th class="head"><p>R2</p></th>
+<th class="head"><p>R3</p></th>
+<th class="head"><p>R4</p></th>
+<th class="head"><p>R5</p></th>
+<th class="head"><p>R6</p></th>
+<th class="head"><p>R7</p></th>
+<th class="head"><p>Sommet fixé</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p>R1(0)</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p><span class="math notranslate nohighlight">\(10_{R1}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1_{R1}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p>R3(1)</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p><span class="math notranslate nohighlight">\(2_{R3}\)</span></p></td>
+<td></td>
+<td><p><span class="math notranslate nohighlight">\(2_{R3}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p>R2(2)</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td><p><span class="math notranslate nohighlight">\(2_{R3}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p>R4(2)</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p><span class="math notranslate nohighlight">\(3_{R4}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(3_{R4}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\infty\)</span></p></td>
+<td><p>R5(3)</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p><span class="math notranslate nohighlight">\(3_{R4}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(13_{R5}\)</span></p></td>
+<td><p>R6(3)</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p><span class="math notranslate nohighlight">\(3.1_{R6}\)</span></p></td>
+<td><p>R7(3.1)</p></td>
+</tr>
+</tbody>
+</table>
+<p>La route la plus courte est donc <span class="math notranslate nohighlight">\(R1 \longmapsto R3 \longmapsto R4 \longmapsto R6 \longmapsto R7\)</span> qui a un coût de <span class="math notranslate nohighlight">\(3,1\)</span>.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="exercice_1.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">Exercices</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ex_routage.html"
+       title="page suivante">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">suivant</p>
+        <p class="prev-next-title">Exercices : protocoles RIP et OSPF</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topologie-d-un-reseau">Topologie d’un réseau</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protocole-de-routage">Protocole de routage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#protocole-rip">Protocole RIP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#protocole-ospf">Protocole OSPF</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par Yannick Chistel
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Yannick Chistel.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,579 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="fr" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Réseau et adressage IP &#8212; NSI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/script.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/activite_reseau';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="Architecture réseau" href="architecture_reseau.html" />
+    <link rel="prev" title="Réseaux et protocoles" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Passer au contenu principal</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">NSI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Réseau et adressage IP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture_reseau.html">Architecture réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercice_1.html">Exercices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocole.html">Protocoles de routage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_routage.html">Exercices : protocoles RIP et OSPF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercice_2.html">Au baccalauréat</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Téléchargez cette page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/activite_reseau.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Télécharger le fichier source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimer au format PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Réseau et adressage IP</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#couches-reseau-et-protocoles">Couches réseau et protocoles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-reseau-internet">Un réseau internet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-de-routage">Table de routage</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="reseau-et-adressage-ip">
+<h1>Réseau et adressage IP<a class="headerlink" href="#reseau-et-adressage-ip" title="Lien permanent vers cette rubrique">#</a></h1>
+<section id="couches-reseau-et-protocoles">
+<h2>Couches réseau et protocoles<a class="headerlink" href="#couches-reseau-et-protocoles" title="Lien permanent vers cette rubrique">#</a></h2>
+<p>La communication entre machines aujourd’hui se réalise grâce à différents éléments physiques et protocoles de communication. On les catégorise en 4 couches différentes.</p>
+<ol class="arabic simple">
+<li><p>La <strong>couche physique</strong> s’appuie sur des interfaces réseau qui sont identifiables de manière unique dans un réseau. Comment une interface réseau est-elle identifiée de façon unique ?</p></li>
+<li><p>La <strong>couche internet</strong> permet la communication de 2 machines appartenant à 2 réseaux différents. Quel est le protocole utilisé et comment cela se traduit-il sur les machines ?</p></li>
+<li><p>La <strong>couche transport</strong> assure l’acheminement des données et vérifie que celles-ci sont complètement arrivées.</p>
+<ul class="simple">
+<li><p>Citer 2 protocoles de la couche transport pour les échanges sur internet.</p></li>
+<li><p>Comment procèdent ces protocoles pour assurer la transmission des données ?</p></li>
+</ul>
+</li>
+<li><p>La <strong>couche application</strong> initie un échange de données sur internet. Citer des applications qui initient et échangent des données sur internet.</p></li>
+<li><p>Les différentes couches traversées par un paquet de données à envoyer sur internet sont complétées par chacune des couches : c’est
+l’encapsulation des données. Représenter par un schéma cette encapsulation.</p></li>
+</ol>
+</section>
+<section id="un-reseau-internet">
+<h2>Un réseau internet<a class="headerlink" href="#un-reseau-internet" title="Lien permanent vers cette rubrique">#</a></h2>
+<p>On va étudier un réseau avec le logiciel filius qui permet simuler des réseaux. Le réseau ci-dessous est à télécharger sur le moodle de l’ENT.</p>
+<ul class="simple">
+<li><p>Le réseau L1 comprend 1 portable qui a pour adresse IP 192.168.1.10</p></li>
+<li><p>Le réseau L2 comprend 1 serveur qui a pour adresse IP 192.168.6.10</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/act_reseau_0.png"><img alt="image" class="align-center" src="../_images/act_reseau_0.png" style="width: 560px;" /></a>
+<ol class="arabic">
+<li><p>Comment s’appelle les appareils qui relient les réseaux L1 et L2 ?</p></li>
+<li><p>Combien d’interfaces réseau contient le routeur R3 ? Donner l’adresse réseau de chacune des interfaces.</p></li>
+<li><p>Compléter le schéma de réseau en indiquant toutes les adresses réseaux de chaque machine.</p></li>
+<li><p>La commande <strong>ping</strong> <em>ip de la machine distante</em> permet de vérifier la connexion avec une autre machine du réseau. Tester cette commande
+entre le portable et le serveur.</p></li>
+<li><p>La commande <strong>traceroute</strong> <em>ip de la machine distante</em> affiche le parcours entre deux machines et affiche les routeurs utilisés.
+Combien de routeurs sont traversés dans cette communication ? Lesquels ?</p></li>
+<li><p>Ajouter un PC portable dans le réseau L1. Assurez-vous qu’il communique avec toutes les machines du réseau L1 et aussi avec le serveur du réseau L2.</p></li>
+<li><p>Ajouter un câble entre les routeurs R3 et R5 en donnant des adresses valides.</p>
+<p>Quelle est la nouvelle route pour atteindre le serveur depuis un PC du réseau L1 ? En combien de sauts ?</p>
+</li>
+</ol>
+</section>
+<section id="table-de-routage">
+<h2>Table de routage<a class="headerlink" href="#table-de-routage" title="Lien permanent vers cette rubrique">#</a></h2>
+<p>Les routeurs sont des appareils munis de plusieurs <strong>interfaces</strong> réseaux qui permettent aux routeurs de communiquer entre eux et d’acheminer les paquets de données. Les interfaces sont désignées par leur nom ou par leur adresse IP.</p>
+<p>Une <strong>passerelle</strong> est un routeur ou une interface du routeur qui permet d’accéder au réseau de destination.</p>
+<p>Sur la figure ci-dessous, les réseaux L1 et L2 sont reliés par différents routeurs.</p>
+<a class="reference internal image-reference" href="../_images/reseau_complet.png"><img alt="image" class="align-center" src="../_images/reseau_complet.png" style="width: 560px;" /></a>
+<p>Chaque routeur dispose d’une table de routage qui contient les différents réseaux auxquels ils peut accéder, les passerelles à utiliser pour y accéder et les interfaces réseaux à utiliser.</p>
+<table class="border-on border-width-1 table table-center">
+<tbody>
+<tr class="row-odd"><td><p>destination</p></td>
+<td><p>passerelle</p></td>
+<td><p>interface</p></td>
+</tr>
+<tr class="row-even"><td><p>IP destination / masque</p></td>
+<td><p>routeur ou IP</p></td>
+<td><p>carte réseau ou IP</p></td>
+</tr>
+</tbody>
+</table>
+<p>Au démarrage du réseau, après la mise sous tension, les tables de routage sont vides et chaque routeur commence par identifier ses voisins
+immédiats et complète sa table.</p>
+<p>Après un certain temps, les routeurs échangent leurs informations et les tables se stabilisent.</p>
+<ol class="arabic">
+<li><p>Au démarrage, la table de routage du routeur R1 est vide. Compléter sa table avec ses voisins immédiats.</p>
+<table class="border-on border-width-1 table table-center">
+<tbody>
+<tr class="row-odd"><td><p>destination</p></td>
+<td><p>passerelle</p></td>
+<td><p>interface</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>Au démarrage, la table de routage du routeur R3 est vide aussi. Compléter sa table avec ses voisins immédiats.</p>
+<table class="border-on border-width-1 table table-center">
+<tbody>
+<tr class="row-odd"><td><p>destination</p></td>
+<td><p>passerelle</p></td>
+<td><p>interface</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>Les routeurs R1 et R3 échangent leurs tables. Compléter la table de routage du routeur R1 avec les nouvelles informations.</p>
+<table class="border-on border-width-1 table table-center">
+<tbody>
+<tr class="row-odd"><td><p>destination</p></td>
+<td><p>passerelle</p></td>
+<td><p>interface</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>Après de multiples échanges entre les routeurs, les tables de routage se stabilisent. Compléter la table de routage du routeur R1 une fois
+stabilisée.</p>
+<table class="border-on border-width-1 table table-center">
+<tbody>
+<tr class="row-odd"><td><p>destination</p></td>
+<td><p>passerelle</p></td>
+<td><p>interface</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">Réseaux et protocoles</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="architecture_reseau.html"
+       title="page suivante">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">suivant</p>
+        <p class="prev-next-title">Architecture réseau</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#couches-reseau-et-protocoles">Couches réseau et protocoles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-reseau-internet">Un réseau internet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-de-routage">Table de routage</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par Yannick Chistel
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Yannick Chistel.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
