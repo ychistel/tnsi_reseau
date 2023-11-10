@@ -1,0 +1,7 @@
+0,:math:`\infty`,:math:`\infty`,:math:`\infty`,:math:`\infty`,:math:`\infty`,:math:`\infty`,R1(0)
+,:math:`10_{R1}`,:math:`1_{R1}`,:math:`\infty`,:math:`\infty`,:math:`\infty`,:math:`\infty`,R3(1)
+,:math:`2_{R3}`,,:math:`2_{R3}`,:math:`\infty`,:math:`\infty`,:math:`\infty`,R2(2)
+,,,:math:`2_{R3}`,:math:`\infty`,:math:`\infty`,:math:`\infty`,R4(2)
+,,,,:math:`3_{R4}`,:math:`3_{R4}`,:math:`\infty`,R5(3)
+,,,,,:math:`3_{R4}`,:math:`13_{R5}`,R6(3)
+,,,,,,:math:`3.1_{R6}`,R7(3.1)

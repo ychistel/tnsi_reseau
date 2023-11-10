@@ -1,0 +1,374 @@
+\documentclass[11pt,a4paper]{article}
+
+%-------------------------------------
+%            Informations Générales
+%-------------------------------------
+
+%\NeedsTeXFormat{LaTeX2e}[2009/09/24]
+%\ProvidesPackage{style}[2009/09/24 Extension personnelle, V1.0]
+
+%-------------------------------------
+% 						extensions
+%-------------------------------------
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage{url}
+\usepackage{etex}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{bbm}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[official]{eurosym}
+%\usepackage{pifont}
+\usepackage[left=1cm, right=1cm, top=1.5cm, bottom=1.5cm]{geometry}
+\usepackage{exercise}
+\usepackage{graphics}
+\usepackage{array,multirow,makecell}
+\usepackage{verbatim}
+\usepackage[dvipsnames,table]{pstricks}
+\usepackage{pstricks-add,pst-plot,pst-text,pst-tree,pst-eps,pst-fill,pst-node,pst-math,pst-blur,pst-func}
+\usepackage{pgf,tikz}
+\usepackage{tipfr}
+\usepackage{thmbox}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage{pdfpages}
+\usepackage{colortbl}
+%\usepackage{sagetex}
+\usetikzlibrary{arrows,patterns}
+%\input tabvar
+\usepackage{tkz-tab}
+\usepackage{listings}
+\usepackage[np]{numprint}
+%\usepackage{tabularx}
+\usepackage{fancybox,fancyhdr}
+\usepackage{thmtools}
+\usepackage{bclogo}
+\usepackage{lastpage}
+
+%------------------------------------- 
+%        		Abréviations personnelles
+%-------------------------------------
+\newcommand{\Cc}{\textbf{Conclusion : }}
+\newcommand{\DNS}{\textbf{Devoir Non Surveillé}}
+\newcommand{\DS}{\textbf{Devoir Surveillé}}
+\newcommand\fpsd{une fonction polynôme du second degré~}
+\newcommand{\N}{\mathbb{N} } % Raccourci pour l'ensemble des entiers naturels
+\newcommand{\R}{\mathbb{R}} % Raccourci pour l'ensemble des réels
+\newcommand{\Z}{\mathbb{Z}} % Raccourci pour l'ensemble des entiers relatifs
+%\newcommand{\N}{\mathbb{N}} % Raccourci pour l'ensemble des réels
+
+%----------------------------------------------------------------------------------------------- 
+% 							Commandes mathématiques
+%-----------------------------------------------------------------------------------------------
+\renewcommand{\vec}[1]{\overrightarrow{#1}}	% Raccourci pour vecteurs
+\newcommand{\inv}[1]{\dfrac{1}{#1}} % Raccourci pour l'inverse des réels
+\newcommand{\e}{\text{e}}
+\newcommand*{\E}{\ensuremath{\mathrm{e}}}
+\newcommand{\lnx}{\ln(x)}
+
+%----------------------------------------------------------------------------------------------- 
+% 							Commandes Tableaux
+%-----------------------------------------------------------------------------------------------
+\setcellgapes{3pt}
+\makegapedcells
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
+%----------------------------------------------------------------------------------------------- 
+% 							Commandes Listes
+%-----------------------------------------------------------------------------------------------
+% Redéfinition du premier niveau
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\textbf{\theenumi)}}
+% Redéfinition du deuxième niveau
+\renewcommand{\theenumii}{\alph{enumii}}
+\renewcommand{\labelenumii}{\textbf{\theenumii)}}
+
+%-----------------------------------------------------------------------------------------------
+%							 		Environnement - Macros
+%-----------------------------------------------------------------------------------------------
+\setlength{\columnsep}{20pt}
+\setlength{\columnseprule}{0.5pt}
+\renewcommand{\thesection}{\arabic{section}}
+%\renewcommand{\thesection}{\arabic{section}}
+%La numérotation des section repart à 0 lorsque l'on change de partie
+%\makeatletter\@addtoreset{section}{chapter}\makeatother
+\makeatletter\@addtoreset{subsection}{section}\makeatother
+%\renewcommand{\thechapter}{\arabic{chapter}}
+%\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+%Modifier la section dans son positionnement, sa forme, couleur,...
+%\makeatletter
+%\renewcommand\section{\@startsection {section}{1}{\z@}%
+%                                   {-1.5ex \@plus -0.5ex \@minus -.2ex}%
+ %                                  {1.8ex \@plus .2ex}%
+  %                                 {\raggedleft\normalfont\color{gray}\large\bfseries}}
+%\makeatother
+\newenvironment{maliste}%
+{ \begin{list}%
+	{$\bullet$}%
+	{\setlength{\labelwidth}{30pt}%
+	 \setlength{\leftmargin}{35pt}%
+	 \setlength{\itemsep}{\parsep}}}%
+{ \end{list} }
+
+
+\setlength{\tabcolsep}{0.4cm}
+\setlength{\parindent}{0cm}
+
+\newcommand{\Frac}[2]{\displaystyle{\frac{#1}{#2}}}
+
+%---------------------------------------------------------------------------------------- 
+% 									Environnement NSI
+%----------------------------------------------------------------------------------------
+
+\newenvironment{NSI}[2]
+{
+	\noindent
+	\setlength{\fboxsep}{0cm}\setlength{\fboxrule}{0pt}\framebox[19cm]{
+		\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{1pt}
+		\Huge{\textbf{#1 :}}
+		\hspace{0.5cm}{\huge{#2}}\hfill
+	}
+	{\newline \rule[0cm]{\linewidth}{0.05em}}
+}
+
+%---------------------------------------------------------------------------------------- 
+% 									Environnement de cours
+%----------------------------------------------------------------------------------------
+\newcounter{nbCrs}
+%\setcounter{nbCrs}{1}
+
+\newenvironment{headCrs}[1]
+{
+	\addtocounter{nbCrs}{1}
+	\noindent
+	\setlength{\fboxsep}{0cm}\setlength{\fboxrule}{0pt}\framebox[19cm]{
+		\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{1pt}
+		\Ovalbox{\Huge{\textbf{\thenbCrs}}}
+		\hspace{0cm plus 1fill}{\huge{\textbf{#1}}}
+	}
+	{\newline \rule[-0.3cm]{\linewidth}{0.05em}}
+}
+
+
+%------------------------------------- 
+% 	Environnement Exercices
+%-------------------------------------
+
+\newenvironment{head}[1]
+{
+	\setlength{\fboxsep}{-0.5cm}\setlength{\fboxrule}{0pt} 
+	\framebox[18cm]{
+		\begin{Huge}
+			\textbf{#1}\hfill
+		\end{Huge}			  
+	}
+}
+{\newline \rule{\linewidth}{1pt}}
+
+%------------------------------------- 
+% 				Environnement DS
+%-------------------------------------
+\newcounter{nbDS}
+%\setcounter{nbDS}{1}
+
+\newenvironment{headDS}[4]	%{DS}{date}{sujet}{classe}
+{
+	\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{DS}}
+		{
+			\addtocounter{nbDS}{1}
+			\noindent
+			\framebox[18.5cm]{
+					\LARGE{ \DS } \textbf{~\thenbDS} \hspace{\stretch{1}} \large{#2}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[2\width]{\small{#3}} \hspace{\stretch{1}} 	\makebox[2\width]{\large{#4}}
+			}
+		}
+		{
+			\noindent
+			\framebox[18.5cm]{
+					\Large{ #1 } \textbf{~\thenbDS} \hspace{\stretch{1}} \large{#2}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[2\width]{\small{#3}} \hspace{\stretch{1}}\hfill \makebox[5\width]{\large{#4}}
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt}\bigskip}
+
+%------------------------------------- 
+% 				Environnement de TEST
+%-------------------------------------
+\newcounter{nbTEST}
+%\setcounter{nbTEST}{1}
+
+\newenvironment{headTEST}[2]	%{Test}{classe}
+{
+	\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{TEST}}
+		{
+			\addtocounter{nbTEST}{1}
+			\noindent
+			\framebox[18.5cm]{
+					\makebox[4cm]{\LARGE{ #1 } \textbf{~\thenbTEST}} \hspace{\stretch{1}} \makebox[8cm][l]{\LARGE{Nom:}}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[4cm]{\large{#2}} \hspace{\stretch{1}} \makebox[8cm][l]{\LARGE{Prénom:}}
+			}
+		}
+		{
+			\noindent
+			\framebox[18.5cm]{
+					\Large{ #1 } \textbf{~\thenbTEST} \hspace{\stretch{1}} \makebox[10cm]{Corrigé}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[6cm]{\small{#2}}
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt}}
+
+
+%-------------------------------------
+% 					Table des matières
+%-------------------------------------
+
+\renewcommand{\contentsname}{Sommaire} 
+
+
+%-------------------------------------
+% 					Fin du package
+%-------------------------------------
+
+%\endinput
+
+
+\newcounter{num}
+\newcounter{rem}
+\setcounter{subsection}{0}
+\setcounter{num}{0}
+\setcounter{rem}{0}
+
+
+\begin{document}
+
+\begin{head}
+{Exercice}
+\end{head}
+
+
+\begin{center}
+\includegraphics[scale=0.8]{../img/21-nsij1me1_ex3.png}
+
+\textit{Figure 1 : Réseau d'entreprise}
+\end{center}
+
+La figure 1 ci-dessus représente le schéma d'un réseau d'entreprise. Il y figure deux réseaux locaux L1 et L2. Ces deux réseaux locaux sont interconnectés par les routeurs R2, R3, R4 et R5. Le réseau local L1 est constitué des PC portables P1 et P2 connectés à la passerelle R1 par le switch Sw1. Les serveurs S1 et S2 sont connectés à la passerelle R6 par le switch Sw2.
+
+Le tableau 1 suivant indique les adresses IPv4 des machines constituants le réseau de l'entreprise.
+
+\begin{center}
+\renewcommand{\arraystretch}{0.6}
+\begin{tabular}{|L{2cm}|L{4cm}|L{5cm}|}\hline
+Nom & Type & Adresse IPv4 \\\hline
+R1 & routeur (passerelle) & Interface 1: 192.168.1.1/24\\
+& & Interface 2: 10.1.1.2/24\\\hline
+R2 & routeur & Interface 1 : 10.1.1.1/24\\
+& & Interface 2 : 10.1.2.1/24\\
+& & Interface 3 : 10.1.3.1/24\\\hline
+R3 & routeur & Interface 1 : 10.1.2.2/24\\
+& & Interface 2 : 10.1.4.2/24\\
+& & Interface 3 : 10.1.5.2/24\\\hline
+R4 & routeur & Interface 1 : 10.1.5.1/24\\
+& & Interface 2 : 10.1.6.1/24\\\hline
+R5 & routeur & Interface 1 : 10.1.3.2/24\\
+& & Interface 2 : 10.1.4.1/24\\
+& & Interface 3 : 10.1.6.2/24\\
+& & Interface 4 : 10.1.7.1/24\\\hline
+R6 & routeur (passerelle) & Interface 1 : 172.16.0.1/16\\
+& & Interface 2 : 10.1.7.2/24\\\hline
+P1 & ordinateur portable & 192.168.1.40/24\\\hline
+P2 & ordinateur portable & 192.168.1.46/24\\\hline
+S1 & serveur & 172.16.8.10/16\\\hline
+S2 & serveur & 172.16.9.12/16\\\hline
+\end{tabular}
+\end{center}
+
+
+\begin{enumerate}
+\item \begin{enumerate}
+\item Quelles sont les adresses des réseaux locaux L1 et L2 ?
+\item Donner la plus petite et la plus grande adresse IP valides pouvant être attribuées à un ordinateur portable ou un serveur sur chacun des réseaux L1 et L2 sachant que l'adresse du réseau et l'adresse de diffusion ne peuvent pas être attribuées à une machine.
+\item Combien de machines peut-on connecter au maximum à chacun de réseaux locaux L1 et L2 ?
+\end{enumerate} 
+\item \begin{enumerate}
+\item Expliquer l'utilité d'avoir plusieurs chemins possibles reliant les réseaux L1 et L2.
+\item Quel est le chemin le plus court en nombre de sauts pour relier R1 et R6? Donner le nombre de sauts de ce chemin et préciser les routeurs utilisés.
+\item La bande passante d'une liaison \textit{Ether} est de $10^{7}$ bits/s et celle d'une liaison \textit{FastEther} est de $10^{8}$ bits/s. Le coût d'une liaison est défini par $10^{8}/d$, où \textit{d} est sa bande passante en bits/s.\medskip
+
+\begin{tabular}{*{8}{|L{1.3cm}}|}\hline
+Liaison & R1-R2 & R2-R3 & R5-R6 & R2-R5 & R3-R4 & R4-R5 & R3-R5\\\hline
+Type & Ether & Ether & Ether & FastEther & FastEther & FastEther & Ether\\\hline
+\end{tabular}\medskip
+
+Quel est le chemin reliant R1 à R6 qui a le plus petit coût ? Donner le coût de ce chemin et préciser les routeurs utilisés.
+\end{enumerate} 
+\item On donne ci-dessous les tables de routage des routeurs R1, R2, R5 et R6 au démarrage du réseau. Indiquer ce qui doit figurer dans les lignes laissées vides des tables de routage des routeurs R5 et R6 pour que es échanges entre les ordinateurs des réseaux L1 et L2 se fassent en empruntant le plus court chemin en nombre de sauts.
+
+\renewcommand{\arraystretch}{0.6}
+\textbf{R1:~}
+\begin{center}
+\begin{tabular}{*{3}{|L{4.5cm}}|}\hline
+IP réseau de destination & Passerelle suivante & Interface\\\hline
+192.168.1.0/24 & 192.168.1.1 & Interface 2\\\hline
+10.1.1.0/24 & 10.1.1.2 & Interface 1\\\hline
+0.0.0.0/0 & 10.1.1.1 & Interface 1\\\hline
+\end{tabular}
+\end{center}
+
+\textbf{R2:~}
+\begin{center}
+\begin{tabular}{*{3}{|L{4.5cm}}|}\hline
+IP réseau de destination & Passerelle suivante & Interface\\\hline
+10.1.1.0/24 & 10.1.1.1 & Interface 1\\\hline
+10.1.2.0/24 & 10.1.2.1 & Interface 2\\\hline
+10.1.3.0/24 & 10.1.3.1 & Interface 3\\\hline
+192.168.1.0/24 & 10.1.1.2 & Interface 2\\\hline
+172.16.0.0/16 & 10.1.3.2 & Interface 3\\\hline
+\end{tabular}
+\end{center}
+
+\textbf{R5:~}
+\begin{center}
+\begin{tabular}{*{3}{|L{4.5cm}}|}\hline
+IP réseau de destination & Passerelle suivante & Interface\\\hline
+10.1.3.0/24 & 10.1.3.2 & Interface 1\\\hline
+10.1.4.0/24 & 10.1.4.2 & Interface 2\\\hline
+10.1.6.0/24 & 10.1.6.2 & Interface 3\\\hline
+10.1.7.0/24 & 10.1.7.1 & Interface 5\\\hline
+& & \\\hline
+& & \\\hline
+\end{tabular}
+\end{center}
+
+\textbf{R6:~}
+\begin{center}
+\begin{tabular}{*{3}{|L{4.5cm}}|}\hline
+IP réseau de destination & Passerelle suivante & Interface\\\hline
+172.16.0.0/16 & 172.16.0.1 & Interface 1\\\hline
+& & \\\hline
+& & \\\hline
+\end{tabular}
+\end{center}
+\end{enumerate}
+\end{document}

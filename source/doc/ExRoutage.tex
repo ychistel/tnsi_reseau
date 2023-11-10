@@ -1,0 +1,184 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{style2017}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks =false,
+    linkcolor=blue,
+   linkbordercolor = 1 0 0
+}
+\newcounter{numexo}
+\setcellgapes{1pt}
+
+\begin{document}
+
+
+
+\begin{NSI}
+{Exercice}{Protocoles de routage RIP et OSPF}
+\end{NSI}
+
+
+
+
+\addtocounter{numexo}{1}
+\subsection*{\Large Exercice \thenumexo}
+
+On considère le réseau composé de 4 routeurs A, B , C et D reliés selon le graphe ci-dessous:
+
+\begin{center}
+\psset{unit=1cm}
+\begin{pspicture}(10,6)
+\cnodeput(0.5,3.5){A}{A}
+\cnodeput(4.5,5.5){B}{B}
+\cnodeput(4.5,1){C}{C}
+\cnodeput(8,2.5){D}{D}
+\ncline{A}{B}%\ncput*{\bf 2}
+\ncline{A}{C}%\ncput*{\bf 4}
+\ncline{B}{C}%\ncput*{\bf 4}
+\ncline{C}{D}%\ncput*{\bf 6}
+%\ncline{R3}{R5}\ncput*{\bf 5}
+%\ncline{R2}{R5}\ncput*{\bf 2}
+%\ncline{R4}{R5}\ncput*{\bf 1}
+%\ncline{R4}{R6}\ncput*{\bf 3}
+%\ncline{R5}{R6}\ncput*{\bf 5}
+\end{pspicture}
+\end{center} 
+
+Le protocole RIP est utilisé au sein de ce réseau.
+\begin{enumerate}
+\item Dresser la table de routage de chaque routeur en indiquant la destination, la passerelle (routeur suivant) et la distance (nombres de sauts) le séparant d'un autre routeur.
+\item On relie un nouveau routeur E au routeur B. Donner la table de routage du routeur E et modifier les tables de routage des autres routeurs selon le protocole RIP.
+\item Pour éviter l'isolement du routeur D, on le relie au nouveau routeur E. Corriger les tables de routage de chaque routeur.
+\item On effectue des travaux sur le lien entre les routeurs C et D le rendant inopérant. Quelle sera alors la table de routage du routeur A selon le protocole RIP ?
+\end{enumerate}
+
+
+\addtocounter{numexo}{1}
+\subsection*{\Large Exercice \thenumexo}
+
+On donne les tables de routage de 4 routeurs reliés dans un même réseau contenant 5 routeurs.\medskip
+
+Table de routage : \textbf{Routeur A}\hspace{4.8cm}Table de routage : \textbf{Routeur B}\medskip
+
+\begin{tabular}{*{3}{|C{2.4cm}}|}\hline
+Destination & Passerelle & Distance\\\hline
+B & B & 1\\
+C & C & 1\\
+D & C & 2\\
+E & B & 2\\\hline
+\end{tabular}\hfill
+\begin{tabular}{*{3}{|C{2.4cm}}|}\hline
+Destination & Passerelle & Distance\\\hline
+A & A & 1\\
+C & A & 2\\
+D & E & 2\\
+E & E & 1\\\hline
+\end{tabular}
+\medskip
+
+Table de routage : \textbf{Routeur C}\hspace{4.8cm}Table de routage : \textbf{Routeur D}\medskip
+
+\begin{tabular}{*{3}{|C{2.4cm}}|}\hline
+Destination & Passerelle & Distance\\\hline
+A & A & 1\\
+B & A & 2\\
+D & D & 1\\
+E & D & 2\\\hline
+\end{tabular}\hfill
+\begin{tabular}{*{3}{|C{2.4cm}}|}\hline
+Destination & Passerelle & Distance\\\hline
+A & C & 2\\
+B & E & 2\\
+C & C & 1\\
+E & E & 1\\\hline
+\end{tabular}
+\medskip
+%\newpage
+%Table de routage : \textbf{Routeur }E\medskip
+%
+%\begin{tabular}{*{3}{|C{2.4cm}}|}\hline
+%Destination & Passerelle & Distance\\\hline
+%A & & 1\\
+%B & & 1\\
+%C & C & 2\\
+%D & B & 2\\\hline
+%\end{tabular}
+
+\begin{enumerate}
+\item Le routeur A doit transmettre un message au routeur E en effectuant un minimum de sauts. Quel est le trajet parcouru ?
+\item Donner une table de routage pour le routeur E.
+\item Représenter par un graphe le réseau entre ces 5 routeurs.
+\end{enumerate}
+
+
+\addtocounter{numexo}{1}
+\subsection*{\Large Exercice \thenumexo}
+Le protocole OSPF est utilisé dans un réseau.
+\begin{enumerate}
+\item Exprimer en bits par seconde, puis en Gb/s un débit de 50 Mb/s.
+\item La liaison entre deux routeurs A et B a un débit de 100 Mbits/s. Calculer le coût de la liaison.
+\item Le coût de la liaison entre deux routeurs A et C vaut 2. Calculer le débit entre ces deux routeurs.
+\end{enumerate}
+
+
+\addtocounter{numexo}{1}
+\subsection*{\Large Exercice \thenumexo}
+On donne le graphe d'un réseau de 7 routeurs. Le protocole OSPF est utilisé entre ces routeurs pour communiquer.
+
+\begin{center}
+\psset{unit=1.5cm,nodesep=3pt,nrot=:U}
+\begin{pspicture}(10,6)
+\cnodeput(0.5,1.5){A}{A}
+\cnodeput(2,5.5){B}{B}
+\cnodeput(3.5,1.5){C}{C}
+\cnodeput(5,5.5){D}{D}
+\cnodeput(6.5,1.5){E}{E}
+\cnodeput(8,5.5){F}{F}
+\cnodeput(9.5,1.5){G}{G}
+\ncline{A}{B}\naput*{\bf 1 Gb/s}
+\ncline{A}{C}\nbput*{\bf 100 Mb/s}
+\ncline{B}{C}\naput*{\bf 1 Gb/s}
+\ncline{B}{D}\naput*{\bf 100 Mb/s}
+\ncline{B}{E}\naput*{\bf 100 Mb/s}
+\ncline{E}{F}\nbput[npos=0.3]{\bf 1 Gb/s}
+\ncline{C}{E}\nbput*{\bf 100 Mb/s}
+\ncline{D}{F}\naput*{\bf 100 Mb/s}
+\ncline{D}{G}\naput[npos=0.3]{\bf 100 Mb/s}
+\ncline{E}{G}\nbput*{\bf 100 Mb/s}
+\ncline{F}{G}\naput*{\bf 1 Gb/s}
+\end{pspicture}
+\end{center} 
+
+\begin{enumerate}
+\item Reproduire le graphe en remplaçant chaque débit par son coût.
+\item Déterminer le trajet qui a la plus faible coût entre les routeurs A et G. Justifier la réponse.
+\end{enumerate}
+
+%\begin{center}
+%\psset{unit=1.5cm,nodesep=3pt,nrot=:U}
+%\begin{pspicture}(10,6)
+%\cnodeput(0.5,1.5){A}{A}
+%\cnodeput(2,5.5){B}{B}
+%\cnodeput(3.5,1.5){C}{C}
+%\cnodeput(5,5.5){D}{D}
+%\cnodeput(6.5,1.5){E}{E}
+%\cnodeput(8,5.5){F}{F}
+%\cnodeput(9.5,1.5){G}{G}
+%\ncline{A}{B}\naput*{\bf 0,1}
+%\ncline{A}{C}\nbput*{\bf 1}
+%\ncline{B}{C}\naput*{\bf 0,1}
+%\ncline{B}{D}\naput*{\bf 1}
+%\ncline{B}{E}\naput*{\bf 1}
+%\ncline{E}{F}\nbput[npos=0.35]{\bf 0,1}
+%\ncline{C}{E}\nbput*{\bf 1}
+%\ncline{D}{F}\naput*{\bf 1}
+%\ncline{D}{G}\naput[npos=0.4]{\bf 1}
+%\ncline{E}{G}\nbput*{\bf 1}
+%\ncline{F}{G}\naput*{\bf 0,1}
+%\end{pspicture}
+%\end{center} 
+
+
+\end{document}

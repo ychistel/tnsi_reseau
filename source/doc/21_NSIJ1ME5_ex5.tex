@@ -1,0 +1,327 @@
+\documentclass[11pt,a4paper]{article}
+
+%-------------------------------------
+%            Informations Générales
+%-------------------------------------
+
+%\NeedsTeXFormat{LaTeX2e}[2009/09/24]
+%\ProvidesPackage{style}[2009/09/24 Extension personnelle, V1.0]
+
+%-------------------------------------
+% 						extensions
+%-------------------------------------
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage{url}
+\usepackage{etex}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{bbm}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[official]{eurosym}
+%\usepackage{pifont}
+\usepackage[left=1cm, right=1cm, top=1.5cm, bottom=1.5cm]{geometry}
+\usepackage{exercise}
+\usepackage{graphics}
+\usepackage{array,multirow,makecell}
+\usepackage{verbatim}
+\usepackage[dvipsnames,table]{pstricks}
+\usepackage{pstricks-add,pst-plot,pst-text,pst-tree,pst-eps,pst-fill,pst-node,pst-math,pst-blur,pst-func}
+\usepackage{pgf,tikz}
+\usepackage{tipfr}
+\usepackage{thmbox}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage{pdfpages}
+\usepackage{colortbl}
+%\usepackage{sagetex}
+\usetikzlibrary{arrows,patterns}
+%\input tabvar
+\usepackage{tkz-tab}
+\usepackage{listings}
+\usepackage[np]{numprint}
+%\usepackage{tabularx}
+\usepackage{fancybox,fancyhdr}
+\usepackage{thmtools}
+\usepackage{bclogo}
+\usepackage{lastpage}
+
+%------------------------------------- 
+%        		Abréviations personnelles
+%-------------------------------------
+\newcommand{\Cc}{\textbf{Conclusion : }}
+\newcommand{\DNS}{\textbf{Devoir Non Surveillé}}
+\newcommand{\DS}{\textbf{Devoir Surveillé}}
+\newcommand\fpsd{une fonction polynôme du second degré~}
+\newcommand{\N}{\mathbb{N} } % Raccourci pour l'ensemble des entiers naturels
+\newcommand{\R}{\mathbb{R}} % Raccourci pour l'ensemble des réels
+\newcommand{\Z}{\mathbb{Z}} % Raccourci pour l'ensemble des entiers relatifs
+%\newcommand{\N}{\mathbb{N}} % Raccourci pour l'ensemble des réels
+
+%----------------------------------------------------------------------------------------------- 
+% 							Commandes mathématiques
+%-----------------------------------------------------------------------------------------------
+\renewcommand{\vec}[1]{\overrightarrow{#1}}	% Raccourci pour vecteurs
+\newcommand{\inv}[1]{\dfrac{1}{#1}} % Raccourci pour l'inverse des réels
+\newcommand{\e}{\text{e}}
+\newcommand*{\E}{\ensuremath{\mathrm{e}}}
+\newcommand{\lnx}{\ln(x)}
+
+%----------------------------------------------------------------------------------------------- 
+% 							Commandes Tableaux
+%-----------------------------------------------------------------------------------------------
+\setcellgapes{3pt}
+\makegapedcells
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
+%----------------------------------------------------------------------------------------------- 
+% 							Commandes Listes
+%-----------------------------------------------------------------------------------------------
+% Redéfinition du premier niveau
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\textbf{\theenumi)}}
+% Redéfinition du deuxième niveau
+\renewcommand{\theenumii}{\alph{enumii}}
+\renewcommand{\labelenumii}{\textbf{\theenumii)}}
+
+%-----------------------------------------------------------------------------------------------
+%							 		Environnement - Macros
+%-----------------------------------------------------------------------------------------------
+\setlength{\columnsep}{20pt}
+\setlength{\columnseprule}{0.5pt}
+\renewcommand{\thesection}{\arabic{section}}
+%\renewcommand{\thesection}{\arabic{section}}
+%La numérotation des section repart à 0 lorsque l'on change de partie
+%\makeatletter\@addtoreset{section}{chapter}\makeatother
+\makeatletter\@addtoreset{subsection}{section}\makeatother
+%\renewcommand{\thechapter}{\arabic{chapter}}
+%\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+%Modifier la section dans son positionnement, sa forme, couleur,...
+%\makeatletter
+%\renewcommand\section{\@startsection {section}{1}{\z@}%
+%                                   {-1.5ex \@plus -0.5ex \@minus -.2ex}%
+ %                                  {1.8ex \@plus .2ex}%
+  %                                 {\raggedleft\normalfont\color{gray}\large\bfseries}}
+%\makeatother
+\newenvironment{maliste}%
+{ \begin{list}%
+	{$\bullet$}%
+	{\setlength{\labelwidth}{30pt}%
+	 \setlength{\leftmargin}{35pt}%
+	 \setlength{\itemsep}{\parsep}}}%
+{ \end{list} }
+
+
+\setlength{\tabcolsep}{0.4cm}
+\setlength{\parindent}{0cm}
+
+\newcommand{\Frac}[2]{\displaystyle{\frac{#1}{#2}}}
+
+%---------------------------------------------------------------------------------------- 
+% 									Environnement NSI
+%----------------------------------------------------------------------------------------
+
+\newenvironment{NSI}[2]
+{
+	\noindent
+	\setlength{\fboxsep}{0cm}\setlength{\fboxrule}{0pt}\framebox[19cm]{
+		\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{1pt}
+		\Huge{\textbf{#1 :}}
+		\hspace{0.5cm}{\huge{#2}}\hfill
+	}
+	{\newline \rule[0cm]{\linewidth}{0.05em}}
+}
+
+%---------------------------------------------------------------------------------------- 
+% 									Environnement de cours
+%----------------------------------------------------------------------------------------
+\newcounter{nbCrs}
+%\setcounter{nbCrs}{1}
+
+\newenvironment{headCrs}[1]
+{
+	\addtocounter{nbCrs}{1}
+	\noindent
+	\setlength{\fboxsep}{0cm}\setlength{\fboxrule}{0pt}\framebox[19cm]{
+		\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{1pt}
+		\Ovalbox{\Huge{\textbf{\thenbCrs}}}
+		\hspace{0cm plus 1fill}{\huge{\textbf{#1}}}
+	}
+	{\newline \rule[-0.3cm]{\linewidth}{0.05em}}
+}
+
+
+%------------------------------------- 
+% 	Environnement Exercices
+%-------------------------------------
+
+\newenvironment{head}[1]
+{
+	\setlength{\fboxsep}{-0.5cm}\setlength{\fboxrule}{0pt} 
+	\framebox[18cm]{
+		\begin{Huge}
+			\textbf{#1}\hfill
+		\end{Huge}			  
+	}
+}
+{\newline \rule{\linewidth}{1pt}}
+
+%------------------------------------- 
+% 				Environnement DS
+%-------------------------------------
+\newcounter{nbDS}
+%\setcounter{nbDS}{1}
+
+\newenvironment{headDS}[4]	%{DS}{date}{sujet}{classe}
+{
+	\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{DS}}
+		{
+			\addtocounter{nbDS}{1}
+			\noindent
+			\framebox[18.5cm]{
+					\LARGE{ \DS } \textbf{~\thenbDS} \hspace{\stretch{1}} \large{#2}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[2\width]{\small{#3}} \hspace{\stretch{1}} 	\makebox[2\width]{\large{#4}}
+			}
+		}
+		{
+			\noindent
+			\framebox[18.5cm]{
+					\Large{ #1 } \textbf{~\thenbDS} \hspace{\stretch{1}} \large{#2}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[2\width]{\small{#3}} \hspace{\stretch{1}}\hfill \makebox[5\width]{\large{#4}}
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt}\bigskip}
+
+%------------------------------------- 
+% 				Environnement de TEST
+%-------------------------------------
+\newcounter{nbTEST}
+%\setcounter{nbTEST}{1}
+
+\newenvironment{headTEST}[2]	%{Test}{classe}
+{
+	\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{TEST}}
+		{
+			\addtocounter{nbTEST}{1}
+			\noindent
+			\framebox[18.5cm]{
+					\makebox[4cm]{\LARGE{ #1 } \textbf{~\thenbTEST}} \hspace{\stretch{1}} \makebox[8cm][l]{\LARGE{Nom:}}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[4cm]{\large{#2}} \hspace{\stretch{1}} \makebox[8cm][l]{\LARGE{Prénom:}}
+			}
+		}
+		{
+			\noindent
+			\framebox[18.5cm]{
+					\Large{ #1 } \textbf{~\thenbTEST} \hspace{\stretch{1}} \makebox[10cm]{Corrigé}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[6cm]{\small{#2}}
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt}}
+
+
+%-------------------------------------
+% 					Table des matières
+%-------------------------------------
+
+\renewcommand{\contentsname}{Sommaire} 
+
+
+%-------------------------------------
+% 					Fin du package
+%-------------------------------------
+
+%\endinput
+
+
+\newcounter{num}
+\newcounter{rem}
+\setcounter{subsection}{0}
+\setcounter{num}{0}
+\setcounter{rem}{0}
+
+
+\begin{document}
+
+\begin{head}
+{Exercice}
+\end{head}
+
+\medskip
+On représente ci-dessous un réseau dans lequel R1, R2, R3, R4, R5 et R6 sont des routeurs. Le réseau local L1 est relié au routeur R1 et le réseau local L2 est relié au routeur R6.
+
+\begin{center}
+\includegraphics[scale=0.8]{../img/21_NSIJ1ME5_ex5.png}
+\end{center}
+
+On donne également des extraits de la table de routage des routeurs R1 à R5 dans le tableau suivant:
+
+\begin{center}
+\begin{tabular}{*{4}{|C{3.6cm}}|}\hline
+Routeur & Réseau destinataire & Passerelle & Interface\\ \hline
+R1 & 54.37.122.0/24 & 86.154.10.1 & 86.154.10.56\\ \hline
+R2 & 54.37.122.0/24 & 37.49.236.22 & 37.49.236.23\\ \hline
+R3 & 54.37.122.0/24 & 63.34.2.8 & 63.34.2.9\\ \hline
+R4 & 54.37.122.0/24 & 94.23.122.10 & 94.23.122.11\\ \hline
+R5 & 54.37.122.0/24 & 218.32.15.1 & 218.32.15.2\\ \hline
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+\item Un paquet part du réseau local L1 à destination du réseau local L2.
+\begin{enumerate}
+\item En utilisant l'extrait de la table de routage de R1, vers quel routeur R1 envoie-t-il ce paquet: R2 ou R3? Justifier.
+\item À l'aide des extraits de tables de routage ci-dessus, nommer les routeurs traversés par ce paquet , lorsqu'il va du réseau L1 au réseau L2.
+\end{enumerate} 
+\item La liaison entre R1 et R2 est rompue.
+\begin{enumerate}
+\item Sachant que ce réseau utilise le protocole RIP, donner les 2 chemins possibles que pourra suivre un paquet allant de L1 vers L2.
+\item Dans les extraits de la table de routage ci-dessus, quelles lignes seront modifiées?
+\end{enumerate} 
+
+\item On a rétabli la liaison entre R1 et R2.
+
+Par ailleurs, pour tenir compte du débit des liaisons, on décide d'utiliser le protocole OSPF pour effectuer le routage. Le coût des liaisons est donné dans le tableau suivant:
+
+\begin{center}
+\begin{tabular}{|L{1.5cm}*{5}{|C{1.2cm}}|}\hline
+Liaison & R1-R2 & R1-R3 & R2-R3 & R2-R4 & R2-R5 \\\hline
+Coût & 100 & 100 & ? & 1 & 10 \\\hline
+\end{tabular}
+
+\begin{tabular}{|L{1.5cm}*{5}{|C{1.2cm}}|}\hline
+Liaison & R2-R6 & R3-R4 & R4-R5 & R4-R6 & R5-R6\\\hline
+Coût & 10 & 10 & 1 & 10 & 1\\\hline
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+\item Le coût d'une liaison est donnée par la formule 
+$$C=\dfrac{10^{9}}{BP}$$
+où BP est la bande passante de la connexion en bps (bits par seconde).
+
+Sachant que la bande passante de la liaison R2-R3 est de 10 Mbps, calculer le coût correspondant.
+\item Déterminer le chemin parcouru par un paquet du réseau L1 et arrivant au réseau L2, en utilisant le protocole OSPF.
+\item Indiquer pour quel(s) routeur(s) l'extrait de la table de routage sera modifié pour un paquet à destination de L2, avec la métrique OSPF.
+\end{enumerate}
+\end{enumerate}
+\end{document}

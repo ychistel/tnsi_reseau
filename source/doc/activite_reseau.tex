@@ -1,0 +1,692 @@
+\documentclass[11pt,a4paper]{article}
+
+%-------------------------------------
+%            Informations Générales
+%-------------------------------------
+
+%\NeedsTeXFormat{LaTeX2e}[2009/09/24]
+%\ProvidesPackage{style}[2009/09/24 Extension personnelle, V1.0]
+
+%-------------------------------------
+% 						extensions
+%-------------------------------------
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage{url}
+\usepackage{etex}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{bbm}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[official]{eurosym}
+%\usepackage{pifont}
+\usepackage[left=1cm, right=1cm, top=1.5cm, bottom=1.5cm]{geometry}
+\usepackage{exercise}
+\usepackage{graphics}
+\usepackage{array,multirow,makecell}
+\usepackage{verbatim}
+\usepackage[dvipsnames,table]{pstricks}
+\usepackage{pstricks-add,pst-plot,pst-text,pst-tree,pst-eps,pst-fill,pst-node,pst-math,pst-blur,pst-func}
+\usepackage{pgf,tikz}
+\usepackage{tipfr}
+\usepackage{thmbox}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage{pdfpages}
+\usepackage{colortbl}
+%\usepackage{sagetex}
+\usetikzlibrary{arrows,patterns}
+%\input tabvar
+\usepackage{tkz-tab}
+\usepackage{listings}
+\usepackage[np]{numprint}
+%\usepackage{tabularx}
+\usepackage{fancybox,fancyhdr}
+\usepackage{thmtools}
+\usepackage{bclogo}
+\usepackage{lastpage}
+
+%------------------------------------- 
+%        		Abréviations personnelles
+%-------------------------------------
+\newcommand{\Cc}{\textbf{Conclusion : }}
+\newcommand{\DNS}{\textbf{Devoir Non Surveillé}}
+\newcommand{\DS}{\textbf{Devoir Surveillé}}
+\newcommand\fpsd{une fonction polynôme du second degré~}
+\newcommand{\N}{\mathbb{N} } % Raccourci pour l'ensemble des entiers naturels
+\newcommand{\R}{\mathbb{R}} % Raccourci pour l'ensemble des réels
+\newcommand{\Z}{\mathbb{Z}} % Raccourci pour l'ensemble des entiers relatifs
+%\newcommand{\N}{\mathbb{N}} % Raccourci pour l'ensemble des réels
+
+%----------------------------------------------------------------------------------------------- 
+% 							Commandes mathématiques
+%-----------------------------------------------------------------------------------------------
+\renewcommand{\vec}[1]{\overrightarrow{#1}}	% Raccourci pour vecteurs
+\newcommand{\inv}[1]{\dfrac{1}{#1}} % Raccourci pour l'inverse des réels
+\newcommand{\e}{\text{e}}
+\newcommand*{\E}{\ensuremath{\mathrm{e}}}
+\newcommand{\lnx}{\ln(x)}
+
+%----------------------------------------------------------------------------------------------- 
+% 							Commandes Tableaux
+%-----------------------------------------------------------------------------------------------
+\setcellgapes{3pt}
+\makegapedcells
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
+%----------------------------------------------------------------------------------------------- 
+% 							Commandes Listes
+%-----------------------------------------------------------------------------------------------
+% Redéfinition du premier niveau
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\textbf{\theenumi)}}
+% Redéfinition du deuxième niveau
+\renewcommand{\theenumii}{\alph{enumii}}
+\renewcommand{\labelenumii}{\textbf{\theenumii)}}
+
+%-----------------------------------------------------------------------------------------------
+%							 		Environnement - Macros
+%-----------------------------------------------------------------------------------------------
+\setlength{\columnsep}{20pt}
+\setlength{\columnseprule}{0.5pt}
+\renewcommand{\thesection}{\arabic{section}}
+%\renewcommand{\thesection}{\arabic{section}}
+%La numérotation des section repart à 0 lorsque l'on change de partie
+%\makeatletter\@addtoreset{section}{chapter}\makeatother
+\makeatletter\@addtoreset{subsection}{section}\makeatother
+%\renewcommand{\thechapter}{\arabic{chapter}}
+%\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+%Modifier la section dans son positionnement, sa forme, couleur,...
+%\makeatletter
+%\renewcommand\section{\@startsection {section}{1}{\z@}%
+%                                   {-1.5ex \@plus -0.5ex \@minus -.2ex}%
+ %                                  {1.8ex \@plus .2ex}%
+  %                                 {\raggedleft\normalfont\color{gray}\large\bfseries}}
+%\makeatother
+\newenvironment{maliste}%
+{ \begin{list}%
+	{$\bullet$}%
+	{\setlength{\labelwidth}{30pt}%
+	 \setlength{\leftmargin}{35pt}%
+	 \setlength{\itemsep}{\parsep}}}%
+{ \end{list} }
+
+
+%------------------------------------------------------------------------------------------------
+% Paramétrage du langage TI pour la reconnaissance des mots clé utilisés
+% A compléter avec les fonctions du catalogue de texas.
+%------------------------------------------------------------------------------------------------
+\lstdefinelanguage{TI}{%
+       morekeywords={%
+        %%% CONTROLE.
+          If, Then, Else, For, While, Repeat, End, Pause, Lbl, Goto, IS>, DS<, Menu, prgm, Return, Stop, EffVar, GraphStyle,
+        %%% ENTREES & SORTIES
+          Input, Prompt, Disp, AffGraph, AffTable, Output, codeTouch, EffEcr, EffTable, CaptVar,
+        %%% CATALOG
+         NbrAléat,
+        %%% FONCTIONS NUMERIQUES
+          cos, sin, tan, acos, asin, atan,
+        %%% CONSTANTES
+          pi,
+      },
+      sensitive=true,
+      morecomment=[l]{\#},
+      morestring=[b]',
+    }
+
+
+%---------------------------------------------------------------------------------------- 
+% 									Environnement NSI
+%----------------------------------------------------------------------------------------
+
+\newenvironment{NSI}[2]
+{
+	\noindent
+	\setlength{\fboxsep}{0cm}\setlength{\fboxrule}{0pt}\framebox[19cm]{
+		\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{1pt}
+		\Huge{\textbf{#1 :}}
+		\hspace{0.5cm}{\huge{#2}}\hfill
+	}
+	{\newline \rule[0cm]{\linewidth}{0.05em}}
+}
+
+%---------------------------------------------------------------------------------------- 
+% 									Environnement de cours
+%----------------------------------------------------------------------------------------
+\newcounter{nbCrs}
+%\setcounter{nbCrs}{1}
+
+\newenvironment{headCrs}[1]
+{
+	\addtocounter{nbCrs}{1}
+	\noindent
+	\setlength{\fboxsep}{0cm}\setlength{\fboxrule}{0pt}\framebox[19cm]{
+		\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{1pt}
+		\Ovalbox{\Huge{\textbf{\thenbCrs}}}
+		\hspace{0cm plus 1fill}{\huge{\textbf{#1}}}
+	}
+	{\newline \rule[-0.3cm]{\linewidth}{0.05em}}
+}
+
+
+
+%-----------------------------------------------------------------------------------------------
+% 								Environnement d'Activité
+%-----------------------------------------------------------------------------------------------
+\newcounter{nbAct}
+%\setcounter{nbAct}{1}
+
+\newenvironment{headAct}[1]
+{
+	\setlength{\fboxsep}{-0.5cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{Activité}}
+		{
+			\addtocounter{nbAct}{1}
+			\noindent
+			\framebox[19cm]{
+				\begin{Huge}
+					$\rhd$ %\hspace{\stretch{1}} 
+					\textbf{#1~\thenbAct}
+					\hspace{\stretch{1}} %$\bigcirc$
+				\end{Huge}			  
+			}
+		}
+		{
+			\noindent
+			\framebox[19cm]{
+				\begin{Huge}
+					$\bigcirc$ \hspace{\stretch{1}} 
+					\textbf{#1~\thenbAct}
+					\hspace{\stretch{1}} $\bigcirc$
+				\end{Huge}				  
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt} \medskip}
+
+%-----------------------------------------------------------------------------------------------
+% 								Environnement d'AP
+%-----------------------------------------------------------------------------------------------
+\newcounter{nbAP}
+
+\newenvironment{headAP}[1]
+{
+	\setlength{\fboxsep}{-0.5cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{Accompagnement Personnalisé}}
+		{
+			\addtocounter{nbAP}{1}
+			\framebox[18cm]{
+				\begin{Huge}
+					$\square$ \hspace{\stretch{1}} 
+					\textbf{#1~\thenbAP}
+					\hspace{\stretch{1}} $\square$
+				\end{Huge}				  
+			}
+		}
+		{
+			\framebox[18cm]{
+				\begin{Huge}
+					$\square$ \hspace{\stretch{1}} 
+					\textbf{#1~\thenbAP}
+					\hspace{\stretch{1}} $\square$
+				\end{Huge}				  
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt}}
+
+%------------------------------------- 
+% 				Environnement Exercices
+%-------------------------------------
+\newcounter{nbEx}
+%\setcounter{nbAct}{1}
+
+\newenvironment{headEx}[1]
+{
+	\setlength{\fboxsep}{-0.5cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{Exercices}}
+		{
+			\addtocounter{nbEx}{1}
+			\framebox[18cm]{
+				\begin{Huge}
+					\textbf{#1}
+					\hspace{\stretch{1}} \textbf{\thenbEx}
+				\end{Huge}				  
+			}
+		}
+		{
+			\framebox[18cm]{
+				\begin{Huge}
+					\textbf{#1}
+					\hspace{\stretch{1}} \textbf{\thenbEx}
+				\end{Huge}				  
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt}}
+
+%------------------------------------- 
+% 				Environnement TP Info
+%-------------------------------------
+\newcounter{nbTP}
+
+\newenvironment{headTP}[1]
+{
+	\setlength{\fboxsep}{-0.5cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{TP}}
+		{
+			\addtocounter{nbTP}{1}
+			\framebox[18cm]{
+				\begin{Huge}
+					\textbf{#1}
+					\hspace{\stretch{1}} \textbf{\thenbTP}
+				\end{Huge}				  
+			}
+		}
+		{
+			\framebox[18cm]{
+				\begin{Huge}
+					\textbf{#1}
+					\hspace{\stretch{1}} \textbf{\thenbTP}
+				\end{Huge}				  
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt}}
+
+
+%------------------------------------- 
+% 				Environnement DNS
+%-------------------------------------
+\newcounter{nbDNS}
+%\setcounter{nbDNS}{1}
+
+\newenvironment{headDNS}[4]	%{DNS}{date}{sujet}{classe}
+{
+	\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{DNS}}
+		{
+			\addtocounter{nbDNS}{1}
+			\noindent
+			\framebox[18.5cm]{
+					\LARGE{ \DNS } \textbf{~\thenbDNS} \hspace{\stretch{1}} \large{#2}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[2\width]{\small{#3}} \hspace{\stretch{1}} \makebox[5\width]{\large{#4}}
+			}
+		}
+		{
+			%\addtocounter{nbDNS}{1}			
+			\noindent
+			\framebox[18.5cm]{
+					\LARGE{ #1 } \textbf{~\thenbDNS} \hspace{\stretch{1}} \large{#2}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[2\width]{\small{#3}} \hspace{\stretch{1}} \makebox[5\width]{\large{#4}}
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt}}
+
+%------------------------------------- 
+% 				Environnement DS
+%-------------------------------------
+\newcounter{nbDS}
+%\setcounter{nbDS}{1}
+
+\newenvironment{headDS}[4]	%{DS}{date}{sujet}{classe}
+{
+	\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{DS}}
+		{
+			\addtocounter{nbDS}{1}
+			\noindent
+			\framebox[18.5cm]{
+					\LARGE{ \DS } \textbf{~\thenbDS} \hspace{\stretch{1}} \large{#2}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[2\width]{\small{#3}} \hspace{\stretch{1}} 	\makebox[2\width]{\large{#4}}
+			}
+		}
+		{
+			\noindent
+			\framebox[18.5cm]{
+					\Large{ #1 } \textbf{~\thenbDS} \hspace{\stretch{1}} \large{#2}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[2\width]{\small{#3}} \hspace{\stretch{1}}\hfill \makebox[5\width]{\large{#4}}
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt}\bigskip}
+
+%------------------------------------- 
+% 				Environnement de TEST
+%-------------------------------------
+\newcounter{nbTEST}
+%\setcounter{nbTEST}{1}
+
+\newenvironment{headTEST}[2]	%{Test}{classe}
+{
+	\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{TEST}}
+		{
+			\addtocounter{nbTEST}{1}
+			\noindent
+			\framebox[18.5cm]{
+					\makebox[4cm]{\LARGE{ #1 } \textbf{~\thenbTEST}} \hspace{\stretch{1}} \makebox[8cm][l]{\LARGE{Nom:}}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[4cm]{\large{#2}} \hspace{\stretch{1}} \makebox[8cm][l]{\LARGE{Prénom:}}
+			}
+		}
+		{
+			\noindent
+			\framebox[18.5cm]{
+					\Large{ #1 } \textbf{~\thenbTEST} \hspace{\stretch{1}} \makebox[10cm]{Corrigé}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[6cm]{\small{#2}}
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt}}
+
+%------------------------------------- 
+% 				Environnement de ACQUIS
+%-------------------------------------
+\newcounter{nbACQUIS}
+%\setcounter{nbTEST}{1}
+
+\newenvironment{headACQUIS}[2]	%{Test}{classe}
+{
+	\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{ACQUIS}}
+		{
+			\addtocounter{nbACQUIS}{1}
+			\noindent
+			\framebox[18.5cm]{
+					\makebox[4cm]{\LARGE{ #1 } \textbf{~\thenbACQUIS}} \hspace{\stretch{1}} \makebox[8cm][l]{\LARGE{Nom:}}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[4cm]{\large{#2}} \hspace{\stretch{1}} \makebox[8cm][l]{\LARGE{Prénom:}}
+			}
+		}
+		{
+			\noindent
+			\framebox[18.5cm]{
+					\Large{ #1 } \textbf{~\thenbACQUIS} \hspace{\stretch{1}} \makebox[10cm]{Corrigé}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[6cm]{\small{#2}}
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt}}
+
+%------------------------------------- 
+% 				Environnement de QCM
+%-------------------------------------
+\newcounter{nbQCM}
+%\setcounter{nbQCM}{1}
+
+\newenvironment{headQCM}[2]	%{QCM}{classe}
+{
+	\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{QCM}}
+		{
+			\addtocounter{nbQCM}{1}
+			\noindent
+			\framebox[18.5cm]{
+					\makebox[4cm]{\LARGE{ #1 } \textbf{~\thenbQCM}} \hspace{\stretch{1}} \makebox[8cm][l]{\LARGE{Nom:}}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[4cm]{\large{#2}} \hspace{\stretch{1}} \makebox[8cm][l]{\LARGE{Prénom:}}
+			}
+		}
+		{
+			\noindent
+			\framebox[18.5cm]{
+					\Large{ #1 } \textbf{~\thenbQCM} \hspace{\stretch{1}} \makebox[10cm]{Corrigé}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[6cm]{\small{#2}}
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt}}
+
+
+
+%------------------------------------- 
+% 				Environnement de DSSC
+%-------------------------------------
+\newcounter{nbDSSC}
+%\setcounter{nbQCM}{1}
+
+\newenvironment{headDSSC}[2]	%{DSSC}{classe}
+{
+	\setlength{\fboxsep}{0.25cm}\setlength{\fboxrule}{0pt} 
+	\ifthenelse{\equal{#1}{DS}}
+		{
+			\addtocounter{nbDSSC}{1}
+			\noindent
+			\framebox[18.5cm]{
+					\makebox[4cm]{\LARGE{ #1 } \textbf{~\thenbDSSC}} \hspace{\stretch{1}} \makebox[8cm][l]{\LARGE{Nom:}}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[4cm]{\large{#2}} \hspace{\stretch{1}} \makebox[8cm][l]{\LARGE{Prénom:}}
+			}
+		}
+		{
+			\noindent
+			\framebox[18.5cm]{
+					\Large{ #1 } \textbf{~\thenbDSSC} \hspace{\stretch{1}} \makebox[10cm]{Corrigé}
+			}
+			\newline
+			\framebox[18.5cm]{
+					\makebox[6cm]{\small{#2}}
+			}
+		}
+}
+{\newline \rule{\linewidth}{1pt}}
+
+%-------------------------------------
+% 					Table des matières
+%-------------------------------------
+
+\renewcommand{\contentsname}{Sommaire} 
+
+
+%-------------------------------------
+% 					Fin du package
+%-------------------------------------
+
+%\endinput
+
+
+\newcounter{num}
+\newcounter{rem}
+
+\begin{document}
+\setcounter{num}{0}
+\setcounter{rem}{0}
+\renewcommand{\arraystretch}{1.25}
+%\setlength{\tabcolsep}{0.4cm}
+\setlength{\parindent}{0cm}
+
+\newcommand{\Frac}[2]{\displaystyle{\frac{#1}{#2}}}
+
+
+
+
+%\begin{NSI}
+%{Activité}{Protocole de routage}
+%\end{NSI}
+
+\begin{huge}
+\textbf{Activité : } Réseau et protocoles
+\end{huge}\medskip
+\hrule
+
+\section*{Couches réseau et protocoles}
+
+La communication entre machines aujourd’hui se réalise grâce à différents éléments physiques et protocoles de communication. On les catégorise en 4 couches différentes.
+
+\begin{enumerate}
+\item La \textbf{couche physique} s'appuie sur des interfaces réseau qui sont identifiables de manière unique dans un réseau. Comment une interface réseau est-elle identifiée de façon unique ?
+
+\item La couche internet permet la communication de 2 machines appartenant à 2 réseaux différents. Quel est le protocole utilisé et comment cela se traduit-il sur les machines ?
+
+\item La couche transport assure l'acheminement des données et vérifie que celles-ci sont complètement arrivées.
+
+\begin{itemize}
+
+\item Citer 2 protocoles de la couche transport pour les échanges sur internet. 
+\item Comment procèdent ces protocoles pour assurer la transmission des données ?
+
+\end{itemize}
+
+\item La couche application initie un échange de données sur internet. Citer des applications qui initient et échangent des données sur internet.
+
+\item Les différentes couches traversées par un paquet de données à envoyer sur internet sont complétées par chacune des couches : c'est l'encapsulation des données. Représenter par un schéma cette encapsulation.
+
+\end{enumerate}
+
+\newpage
+\section*{Un réseau internet}
+On va étudier un réseau avec le logiciel filius qui permet simuler des réseaux. Le réseau ci-dessous est à télécharger sur le moodle de l'ENT.
+\begin{itemize}
+\item Le réseau L1 comprend 1 portable qui a pour adresse IP 192.168.1.10
+\item Le réseau L2 comprend 1 serveur qui a pour adresse IP 192.168.6.10
+\end{itemize}
+
+\begin{center}
+\includegraphics[scale=0.8]{../img/act_reseau_0.png}
+\end{center}
+
+\begin{enumerate}
+\item Comment s'appelle les appareils qui relient les réseaux L1 et L2 ?
+
+\item Combien d'interfaces réseau contient le routeur R3 ? Donner l'adresse réseau de chacune des interfaces.
+
+\item Compléter le schéma de réseau en indiquant toutes les adresses réseaux de chaque machine.
+
+\item La commande \textbf{ping} \textit{ip de la machine distante} permet de vérifier la connexion avec une autre machine du réseau. Tester cette commande entre le portable et le serveur.
+
+\item La commande \textbf{traceroute} \textit{ip de la machine distante} affiche le parcours entre deux machines et affiche les routeurs utilisés. Combien de routeurs sont traversés dans cette communication ? Lesquels ?
+
+\item Ajouter un PC portable dans le réseau L1. Assurez-vous qu'il  communique avec toutes les machines du réseau L1 et aussi avec le serveur du réseau L2.
+
+\item Ajouter un câble entre les routeurs R3 et R5 en donnant des adresses valides. 
+
+Quelle est la nouvelle route pour atteindre le serveur depuis un PC du réseau L1 ? En combien de sauts ?
+
+\end{enumerate}
+
+
+\newpage
+
+%\section*{Passerelle et interface}
+\section*{Table de routage}
+
+Les routeurs sont des appareils munis de plusieurs \textbf{interfaces} réseaux qui permettent aux routeurs de communiquer entre eux. Les interfaces sont désignées par leur nom ou par leur adresse IP. \medskip
+
+Une \textbf{passerelle} est un routeur ou une interface du routeur qui permet d'accéder au réseau de destination.\medskip
+
+Sue la figure ci-dessous, les réseaux L1 et L2 sont reliés par différents routeurs.
+
+\begin{center}
+\includegraphics[scale=0.8]{../img/reseau_complet.png}
+\end{center}
+
+%\section*{Table de routage}
+
+Chaque routeur dispose d'une table de routage qui contient les différents réseaux auxquels ils peut accéder, les passerelles à utiliser pour y accéder et les interfaces réseaux à utiliser.
+
+\begin{center}
+\begin{tabular}{*{3}{|C{4cm}}|}\hline
+\textbf{destination} & \textbf{passerelle} & \textbf{interface} \\\hline
+IP destination/masque & routeur ou IP & carte réseau ou IP \\\hline
+\end{tabular}
+\end{center}
+
+
+Au démarrage du réseau, après la mise sous tension, les tables de routage sont vides et chaque routeur commence par identifier ses voisins immédiats et complète sa table.
+
+Après un certain temps, les routeurs échangent leurs informations et les tables se stabilisent.
+
+\begin{enumerate}
+\item Au démarrage, la table de routage du routeur R1 est vide. Compléter sa table avec ses voisins immédiats.
+
+\begin{center}
+\begin{tabular}{*{3}{|C{4cm}}|}\hline
+\textbf{réseau destination} & \textbf{passerelle suivante} & \textbf{interface} \\\hline
+ & &  \\\hline
+ & &  \\\hline
+\end{tabular}
+\end{center}
+
+
+\item Au démarrage, la table de routage du routeur R3 est vide aussi. Compléter sa table avec ses voisins immédiats.
+
+\begin{center}
+\begin{tabular}{*{3}{|C{4cm}}|}\hline
+\textbf{destination} & \textbf{passerelle} & \textbf{interface} \\\hline
+ & &  \\\hline
+ & &  \\\hline
+ & &  \\\hline
+ & &  \\\hline
+\end{tabular}
+\end{center}
+
+
+\item Les routeurs R1 et R3 échangent leurs tables. Compléter la table de routage du routeur R1 avec les nouvelles informations.
+
+\begin{center}
+\begin{tabular}{*{3}{|C{4cm}}|}\hline
+\textbf{destination} & \textbf{passerelle} & \textbf{interface} \\\hline
+ & &  \\\hline
+ & &  \\\hline
+ & &  \\\hline
+ & &  \\\hline
+ & &  \\\hline
+ & &  \\\hline
+\end{tabular}
+\end{center}
+
+\item Après de multiples échanges entre les routeurs, les tables de routage se stabilisent. Compléter la table de routage du routeur R1 une fois stabilisée.
+
+\begin{center}
+\begin{tabular}{*{3}{|C{4cm}}|}\hline
+\textbf{destination} & \textbf{passerelle} & \textbf{interface} \\\hline
+ & &  \\\hline
+ & &  \\\hline
+ & &  \\\hline
+ & &  \\\hline
+ & &  \\\hline
+ & &  \\\hline
+ & &  \\\hline
+ & &  \\\hline
+\end{tabular}
+\end{center}
+
+\end{enumerate}
+
+
+\end{document}
